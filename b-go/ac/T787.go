@@ -2,6 +2,7 @@ package ac
 
 import "fmt"
 
+// 归并排序 https://www.acwing.com/problem/content/789/
 func merge_sort(q []int, tmp []int, l int, r int) {
     if l >= r {
         return
@@ -28,7 +29,7 @@ func merge_sort(q []int, tmp []int, l int, r int) {
         tmp[k] = q[j]; k++; j++
     }
     
-    for i, j = l, l; i <= r; i, j = i+1, j+1 {
+    for i, j = l, l; i <= r; i, j = i + 1, j + 1 {
         q[i] = tmp[j]
     }
 }

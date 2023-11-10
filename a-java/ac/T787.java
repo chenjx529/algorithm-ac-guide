@@ -1,8 +1,9 @@
 package ac;
+
 import java.util.Scanner;
 
 /**
- * 归并排序
+ * 归并排序 https://www.acwing.com/problem/content/789/
  */
 public class T787 {
     

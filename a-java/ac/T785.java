@@ -1,7 +1,9 @@
 package ac;
+
 import java.util.Scanner;
+
 /**
- * 快速排序，两种方案：
+ * 快速排序 https://www.acwing.com/problem/content/787/
  * 1. (l + r) >> 1，中间值取左边，最后一步取到的是j，所以分区是(l, j)和(j + 1, r)
  * 2. (l + r + 1) >> 1，中间值取右边，最后一步取到的是i，所以分区是(l, i - 1)和(i, r)
  */
