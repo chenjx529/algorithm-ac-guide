@@ -1,20 +1,22 @@
 package ac;
 import java.util.Scanner;
 
-public class AC787 {
+/**
+ * 归并排序
+ */
+public class T787 {
     
     static int[] q = new int[100005];
     static int[] t = new int[100005];
     
-    public static void merge(int l, int r) {
+    public static void merge_sort(int l, int r) {
         if (l >= r) return;
         
-        int mid = r + l >> 1;
-        
-        merge(l, mid);
-        merge(mid + 1, r);
-        
-        int k = 0, i = l, j = mid + 1;
+        int mid = (r + l) >> 1;
+        merge_sort(l, mid);
+        merge_sort(mid + 1, r);
+
+        int k = l, i = l, j = mid + 1;
         while (i <= mid && j <= r) {
             if (q[i] <= q[j]) t[k++] = q[i++];
             else t[k++] = q[j++];
@@ -23,7 +25,7 @@ public class AC787 {
         while (i <= mid) t[k++] = q[i++];
         while (j <= r) t[k++] = q[j++];
         
-        for (i = l, j = 0; i <= r; i++, j++)
+        for (i = l, j = l; i <= r; i++, j++)
             q[i] = t[j];
     }
     
@@ -33,9 +35,10 @@ public class AC787 {
         for (int i = 1; i <= n; i++)
             q[i] = sc.nextInt();
 
-        merge(0, n);
+        merge_sort(0, n);
 
         for (int i = 1; i <= n; i++)
             System.out.print(q[i] + " ");
+        sc.close();
     }
 }
