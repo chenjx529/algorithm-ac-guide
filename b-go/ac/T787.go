@@ -1,8 +1,6 @@
-package main
+package ac
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func merge_sort(q []int, tmp []int, l int, r int) {
     if l >= r {
@@ -35,7 +33,7 @@ func merge_sort(q []int, tmp []int, l int, r int) {
     }
 }
 
-func main() {
+func T787() {
     var n int
     fmt.Scan(&n)
     
