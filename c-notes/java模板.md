@@ -1,9 +1,8 @@
 ## 1. 基础算法
 
-### 排序
+### 快排
 
-```c++
-// 快排
+```java
 void quick_sort(int q[], int l, int r) {
     if (l >= r) return;
     int i = l - 1, j = r + 1, x = q[(l + r) >> 1]; // 左边界，可以取到q[l]
@@ -15,8 +14,11 @@ void quick_sort(int q[], int l, int r) {
     quick_sort(q, l, j);
     quick_sort(q, j + 1, r);
 }
+```
 
-// 归并
+### 归并
+
+```c++
 void merge_sort(int q[], int l, int r){
     if(l >= r) return;
     
@@ -27,7 +29,10 @@ void merge_sort(int q[], int l, int r){
     int k = l, i = l, j = mid + 1;
     while (i <= mid && j <= r){
         if (q[i] <= q[j]) tmp[k ++ ] = q[i ++ ];
-        else tmp[k ++ ] = q[j ++ ];
+        else {
+            tmp[k ++ ] = q[j ++ ];
+            // res += mid - i + 1  // 有(mid - i + 1)个数和q[j]是逆序对关系
+        }
     }  
     while (i <= mid) tmp[k ++ ] = q[i ++ ];
     while (j <= r) tmp[k ++ ] = q[j ++ ];
