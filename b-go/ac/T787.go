@@ -3,49 +3,48 @@ package ac
 import "fmt"
 
 // 归并排序 https://www.acwing.com/problem/content/789/
-func merge_sort(q []int, tmp []int, l int, r int) {
+func mergeSort(q []int, l, r int) {
     if l >= r {
         return
     }
     
     mid := (l + r) >> 1
-    merge_sort(q, tmp, l, mid)
-    merge_sort(q, tmp, mid + 1, r)
+    mergeSort(q, l, mid)
+    mergeSort(q, mid + 1, r)
     
-    k, i, j := l, l, mid + 1
+    i, j, t:= l, mid + 1, make([]int, 0)
     for i <= mid && j <= r {
         if q[i] <= q[j] {
-            tmp[k] = q[i]; k++; i++
+            t = append(t, q[i])
+            i++
         } else {
-            tmp[k] = q[j]; k++; j++
+            t = append(t, q[j])
+            j++
+            // res += mid - i + 1  // 有(mid - i + 1)个数和q[j]是逆序对关系
         }
     }
     
     for i <= mid {
-        tmp[k] = q[i]; k++; i++
+        t = append(t, q[i])
+        i++
     }
     
     for j <= r {
-        tmp[k] = q[j]; k++; j++
+        t = append(t, q[j])
+        j++
     }
     
-    for i, j = l, l; i <= r; i, j = i + 1, j + 1 {
-        q[i] = tmp[j]
-    }
+    copy(q[l: r + 1], t)
 }
 
 func T787() {
     var n int
     fmt.Scan(&n)
-    
     q := make([]int, n)
-    tmp := make([]int, n)
     for i := 0; i < n; i++ {
         fmt.Scan(&q[i])
     }
-    
-    merge_sort(q, tmp, 0, n - 1)
-    
+    mergeSort(q, 0, n - 1)
 	for _, v := range q {
 	    fmt.Printf("%d ", v)
 	}
