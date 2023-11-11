@@ -6,7 +6,7 @@
 // 快排
 void quick_sort(int q[], int l, int r) {
     if (l >= r) return;
-    int i = l - 1, j = r + 1, x = q[l + r >> 1]; // 左边界，可以取到q[l]
+    int i = l - 1, j = r + 1, x = q[(l + r) >> 1]; // 左边界，可以取到q[l]
     while (i < j) {
         while (q[++i] < x);
 		while (q[--j] > x);
@@ -20,12 +20,11 @@ void quick_sort(int q[], int l, int r) {
 void merge_sort(int q[], int l, int r){
     if(l >= r) return;
     
-    int mid = l + r >> 1;
-
+    int mid = (l + r) >> 1;
     merge_sort(q, l, mid);
     merge_sort(q, mid + 1, r);
     
-    int k = 0, i = l, j = mid + 1;
+    int k = l, i = l, j = mid + 1;
     while (i <= mid && j <= r){
         if (q[i] <= q[j]) tmp[k ++ ] = q[i ++ ];
         else tmp[k ++ ] = q[j ++ ];
@@ -33,31 +32,31 @@ void merge_sort(int q[], int l, int r){
     while (i <= mid) tmp[k ++ ] = q[i ++ ];
     while (j <= r) tmp[k ++ ] = q[j ++ ];
 
-    for (i = l, j = 0; i <= r; i ++, j ++ ) q[i] = tmp[j];
+    for (i = l, j = l; i <= r; i ++, j ++ ) q[i] = tmp[j];
 }
 ```
 
 ### 二分
 
 ```c++
-// 左边界
-int bsearch(int l, int r) {
+// 二分左边界，条件是 q[mid] >= x，当 q[mid] == x，mid就是左边界，最大值最小的问题
+static int bsearch_left(int x, int l, int r) {
     while (l < r) {
-        int mid = l + r >> 1; // 向下取整, 可以取到q[l]
-        if (x <= q[mid]) r = mid;    
+        int mid = (l + r) >> 1; // 取左边的数
+        if (q[mid] >= x) r = mid;
         else l = mid + 1;
     }
     return l;
 }
 
-// 右边界
-int bsearch(int l, int r) {
+// 二分右边界，条件是 q[mid] <= x, 当 q[mid] == x，mid就是右边界，最小值最大的问题
+static int bsearch_right(int x, int l, int r) {
     while (l < r) {
-        int mid = l + r + 1 >> 1; // 向上取整, 可以取到q[r]
-        if (x >= q[mid]) l = mid;
+        int mid = (l + r + 1) >> 1;  // 取右边的数
+        if (q[mid] <= x) l = mid;
         else r = mid - 1;
     }
-    return l;
+    return r;
 }
 ```
 ### 前缀和

@@ -33,12 +33,12 @@ public class T787 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        for (int i = 1; i <= n; i++)
+        for (int i = 0; i < n; i++)
             q[i] = sc.nextInt();
 
-        merge_sort(0, n);
+        merge_sort(0, n - 1);
 
-        for (int i = 1; i <= n; i++)
+        for (int i = 0; i < n; i++)
             System.out.print(q[i] + " ");
         sc.close();
     }
