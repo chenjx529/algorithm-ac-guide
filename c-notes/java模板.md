@@ -3,14 +3,19 @@
 ### 快排
 
 ```java
-void quick_sort(int q[], int l, int r) {
+static void quick_sort(int[] q, int l, int r) {
     if (l >= r) return;
-    int i = l - 1, j = r + 1, x = q[(l + r) >> 1]; // 左边界，可以取到q[l]
+    
+    int i = l - 1;
+    int j = r + 1;
+    int x = q[(l + r) >> 1];
+    
     while (i < j) {
         while (q[++i] < x);
-		while (q[--j] > x);
-        if (i < j) swap(q[i], q[j]);
+        while (q[--j] > x);
+        if (i < j) swap(q, i, j);
     }
+    
     quick_sort(q, l, j);
     quick_sort(q, j + 1, r);
 }
@@ -18,34 +23,35 @@ void quick_sort(int q[], int l, int r) {
 
 ### 归并
 
-```c++
-void merge_sort(int q[], int l, int r){
-    if(l >= r) return;
+```java
+static void merge_sort(int[] q, int l, int r) {
+    if (l >= r) return;
     
-    int mid = (l + r) >> 1;
+    int mid = (r + l) >> 1;
     merge_sort(q, l, mid);
     merge_sort(q, mid + 1, r);
-    
-    int k = l, i = l, j = mid + 1;
-    while (i <= mid && j <= r){
-        if (q[i] <= q[j]) tmp[k ++ ] = q[i ++ ];
-        else {
-            tmp[k ++ ] = q[j ++ ];
-            // res += mid - i + 1  // 有(mid - i + 1)个数和q[j]是逆序对关系
-        }
-    }  
-    while (i <= mid) tmp[k ++ ] = q[i ++ ];
-    while (j <= r) tmp[k ++ ] = q[j ++ ];
 
-    for (i = l, j = l; i <= r; i ++, j ++ ) q[i] = tmp[j];
+    int k = 0, i = l, j = mid + 1;
+    int[] t = new int[r - l + 1];
+    while (i <= mid && j <= r) {
+        if (q[i] <= q[j]) t[k++] = q[i++];
+        else t[k++] = q[j++];
+    }
+    
+    while (i <= mid) t[k++] = q[i++];
+    while (j <= r) t[k++] = q[j++];
+    
+    for (i = l, j = 0; i <= r; i++, j++) {
+        q[i] = t[j];
+    }
 }
 ```
 
 ### 二分
 
-```c++
+```java
 // 二分左边界，条件是 q[mid] >= x，当 q[mid] == x，mid就是左边界，最大值最小的问题
-static int bsearch_left(int x, int l, int r) {
+static int bsearch_left(int[] q, int x, int l, int r) {
     while (l < r) {
         int mid = (l + r) >> 1; // 取左边的数
         if (q[mid] >= x) r = mid;
@@ -55,7 +61,7 @@ static int bsearch_left(int x, int l, int r) {
 }
 
 // 二分右边界，条件是 q[mid] <= x, 当 q[mid] == x，mid就是右边界，最小值最大的问题
-static int bsearch_right(int x, int l, int r) {
+static int bsearch_right(int[] q, int x, int l, int r) {
     while (l < r) {
         int mid = (l + r + 1) >> 1;  // 取右边的数
         if (q[mid] <= x) l = mid;
