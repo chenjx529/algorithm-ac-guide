@@ -124,22 +124,22 @@ fmt.Println(num)
 
 ```go
 func main() {
-    // 创建一个空的map，键是字符串类型，值是整数类型
+    // 创建map
     myMap := make(map[string]int)
     // 添加键值对到map中
-    myMap["apple"] = 10
+    myMap["apple"]++
     myMap["banana"] = 20
     myMap["orange"] = 15
     // 获取map中的值
-    fmt.Println("apple:", myMap["apple"])     // 输出：apple: 10
-    fmt.Println("banana:", myMap["banana"])   // 输出：banana: 20
-    fmt.Println("orange:", myMap["orange"])   // 输出：orange: 15
+    v := myMap["apple"]
+    v, ok := myMap["apple"]
     // 修改map中的值
     myMap["apple"] = 5
-    fmt.Println("Modified apple:", myMap["apple"])  // 输出：Modified apple: 5
+    myMap["apple"]--
+    fmt.Println(myMap["apple"]) // 4
     // 删除map中的键值对
     delete(myMap, "orange")
-    fmt.Println("After deleting orange:", myMap)   // 输出：After deleting orange: map[apple:5 banana:20]
+    fmt.Println(myMap)   // 输出：map[apple:4 banana:20]
 }
 ```
 
@@ -154,9 +154,9 @@ func main() {
     myMap["apple"] = exists{}
     myMap["banana"] = exists{}
     myMap["orange"] = exists{}
-    // 获取map中的值
-    _, ok := myMap["apple"]
     fmt.Println(ok)
+    // 获取set中的值
+    _, ok := myMap["apple"]
     // 删除set中的值
     delete(myMap, "orange")
     fmt.Println("After deleting orange:", myMap)
