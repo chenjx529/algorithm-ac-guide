@@ -1,6 +1,6 @@
 package ac;
 
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * 快速排序 https://www.acwing.com/problem/content/787/

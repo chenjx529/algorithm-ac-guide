@@ -1,4 +1,4 @@
-我的评价是：面试的时候还是用java吧，Go的标准库不是很全，比如heap要自己实现才可以用。
+面试的时候还是用java吧，Go的标准库不是很全，比如heap要自己实现才可以用。
 
 ## 1. 输入输出
 
@@ -111,16 +111,27 @@ func main() {
 数字：
 
 ```go
-num := [] int{1, 7, 5, 2, 6}
-sort.Ints(num) //升序
-fmt.Println(num)
-sort.Sort(sort.Reverse(sort.IntSlice(num))) //降序
-fmt.Println(num)
+tmp := []int{1, 7, 5, 2, 6}
+sort.Slice(tmp, func(i, j int) bool {  
+    return tmp[i] < tmp[j]
+})
 ```
 
 ## 3. 数据结构
 
-### 3.1 map
+### 3.1 slice
+
+```go
+切片：var arr []int 或者 arr := make([]int, n)
+
+数组：var arr [n]int
+
+数组变切片：arr[:]
+
+有长度的就是数组，没有长度的就是切片。
+```
+
+### 3.2 map
 
 ```go
 func main() {
@@ -143,7 +154,7 @@ func main() {
 }
 ```
 
-### 3.2 set
+### 3.3 set
 
 ```go
 func main() {
@@ -163,7 +174,7 @@ func main() {
 }
 ```
 
-### 3.3 list
+### 3.4 list
 
 `container/list`包提供了标准库中的双向链表（Doubly Linked List）实现。
 
@@ -195,7 +206,7 @@ func main() {
 }
 ```
 
-### 3.4 heap
+### 3.5 heap
 
 `container/heap`包提供了堆的实现，用于构建优先队列。
 

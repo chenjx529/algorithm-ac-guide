@@ -14,6 +14,8 @@
 
 数字都在 1 到 n 之间，查找一个有范围的整数，考虑二分查找。
 
+Integer和int的区别，一个是对象，默认值是null；一个是基本类型，默认值是0。
+
 ```java
 import java.util.Scanner;
 
@@ -110,6 +112,10 @@ public int[] reverse(int[] array) {
 ```java
 // 对数组a的下标从fromIndex到toIndex-1的元素排序，注意：下标为toIndex的元素不参与排序
 Arrays.sort(Object[] a, fromIndex, toIndex)
+
+// 想要使用自定义的Comparator，必须使用包装类
+// Comparator的原理：对于(a, b)，返回负数，表示a<b；返回0，表示a==b；返回整数，表示a>b。
+Arrays.sort(Integer[] a, (a, b) -> a - b) // 顺序
 ```
 
 数组去重：推荐使用ArrayList
