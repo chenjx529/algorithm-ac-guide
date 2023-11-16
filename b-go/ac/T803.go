@@ -3,7 +3,6 @@ package ac
 import (
     "sort"
     "fmt"
-    "math"
     "os"
     "bufio"
 )
@@ -20,6 +19,7 @@ func max(a, b int) int {
     return b
 }
 
+// 区间合并 https://www.acwing.com/problem/content/805/
 func T803() {
     in := bufio.NewReader(os.Stdin)
     var n, l, r int
@@ -35,24 +35,15 @@ func T803() {
         return q[i].Left < q[j].Left
     })
     
-    st := math.MinInt32
-    ed := math.MinInt32
-    res := 0
-    for i := 0; i < n; i++ {
+    ed := q[0].Right
+    res := 1
+    for i := 1; i < n; i++ {
         if ed < q[i].Left {
-            if st != math.MinInt32 {
-                res++
-            }
-            st = q[i].Left
+            res++
             ed = q[i].Right
         } else {
             ed = max(ed, q[i].Right)
         }
     }
-    
-    if st != math.MinInt32 {
-        res++
-    }
-    
     fmt.Print(res)
 }

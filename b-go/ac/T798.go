@@ -4,7 +4,6 @@ import (
     "fmt"
     "bufio"
     "os"
-    "strconv"
 )
 
 // 二维差分 https://www.acwing.com/problem/content/800/
@@ -16,16 +15,12 @@ func insert798(b [][]int, x1, y1, x2, y2, c int) {
 }
 
 func T798() {
-    scanner := bufio.NewScanner(os.Stdin)
-    scanner.Split(bufio.ScanWords)
+    in := bufio.NewReader(os.Stdin)
     
     // n m q
-    scanner.Scan()
-    n, _ := strconv.Atoi(scanner.Text())
-    scanner.Scan()
-    m, _ := strconv.Atoi(scanner.Text())
-    scanner.Scan()
-    q, _ := strconv.Atoi(scanner.Text())
+    var n, m, q int
+    fmt.Fscan(in, &n, &m, &q)
+    
     
     // b
     b := make([][]int, n + 2)
@@ -34,26 +29,18 @@ func T798() {
     }
     
     // 差分初始化
+    var c int
     for i := 1; i <= n; i++ {
         for j := 1; j <= m; j++ {
-            scanner.Scan()
-            c, _ := strconv.Atoi(scanner.Text())
+            fmt.Fscan(in, &c)
             insert798(b, i, j, i, j, c)
         }
     }
     
     // 差分
+    var x1, y1, x2, y2 int
     for i := 1; i <= q; i++ {
-        scanner.Scan()
-        x1, _ := strconv.Atoi(scanner.Text())
-        scanner.Scan()
-        y1, _ := strconv.Atoi(scanner.Text())
-        scanner.Scan()
-        x2, _ := strconv.Atoi(scanner.Text())
-        scanner.Scan()
-        y2, _ := strconv.Atoi(scanner.Text())
-        scanner.Scan()
-        c, _ := strconv.Atoi(scanner.Text())
+        fmt.Fscan(in, &x1, &y1, &x2, &y2, &c)
         insert798(b, x1, y1, x2, y2, c)
     }
     

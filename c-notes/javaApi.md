@@ -16,70 +16,67 @@
 
 Integer和int的区别，一个是对象，默认值是null；一个是基本类型，默认值是0。
 
+## 2. 输入
+
+通用Scanner：
+
 ```java
-import java.util.Scanner;
-
+import java.util.*;
 public class Main {
-    static int[] q = new int[100005];
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        for (int i = 0; i < n; i++)
+        int[] q = new int[n];
+        for (int i = 0; i < n; i++) {
             q[i] = sc.nextInt();
-
-        System.out.println();
-
-        // 循环输入
-        while (sc.hasNext()) {
-            int x = sc.nextInt();
         }
     }
 }
 ```
 
-## 2. 数组
+缓冲流BufferedReader：
+
+```java
+import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(reader.readLine());
+        int[][] a = new int[n][2];
+        String[] line;
+        for (int i = 0; i < n; i++) {
+            line = reader.readLine().split(" ");
+            a[i][0] = Integer.parseInt(line[0]);
+            a[i][1] = Integer.parseInt(line[1]);
+        }
+    }
+}
+```
+
+## 3. 数组
+
+数组是new出来的，数组是对象，数组作为参数传入函数后经过操作底层数据会发生改变的。
 
 初始化：
 
 ```java
+// 一维数组
 int[] arr1 = new int[3]; 
 int[] arr2 = new int[]{1,2,3,4,5};
 int[] arr3 = {1,2,3,4,5};
+
+// 二维数组
+int[][] arr4 = new int[3][4]; 
+int[][] arr5 = {{1,2,3,4},{4,5,6,7},{7,8,9,10}};
 ```
 
 长度：array.length
-
-数组判断：array.getClass().isArray()
-
-传参：
-
-```java
-public static int[] printArray(int[] arr) {
-    for (int j : arr) {
-        System.out.println(j);
-    }
-    return new int[]{1, 3, 5, 7, 9};
-}
-```
-
-二维数组：
-
-```java
-int[][] datas = new int[3][4]; 
-int[][] m = {{1,2,3,4},{4,5,6,7},{7,8,9,10}};
-```
-
-使用clone()：
-
-+ 一维数组：深克隆，重新分配空间，并将元素复制过去
-+ 二维数组：浅克隆，传递引用。
 
 判空：
 
 ```java
 // 一维数组
-if (array == null || array.length == 0) return false;
+if (arr == null || arr.length == 0) return false;
 
 // 二维数组
 if (matrix == null) return false;
@@ -96,48 +93,36 @@ List list = Arrays.asList(arr);
 翻转：
 
 ```java
-public int[] reverse(int[] array) {
+public void reverse(int[] array) {
     int n = array.length;
     for (int i = 0; i < n / 2; i++) {
         int tmp = array[i];
         array[i] = array[n - 1 - i];
         array[n - 1 - i] = tmp;
     }
-    return array;
 }
 ```
 
 数组排序：
 
 ```java
-// 对数组a的下标从fromIndex到toIndex-1的元素排序，注意：下标为toIndex的元素不参与排序
+// 对数组a从fromIndex到toIndex-1排序，toIndex不参与排序
 Arrays.sort(Object[] a, fromIndex, toIndex)
 
 // 想要使用自定义的Comparator，必须使用包装类
-// Comparator的原理：对于(a, b)，返回负数，表示a<b；返回0，表示a==b；返回整数，表示a>b。
+// 原理：返回负数，表示a<b；返回0，表示a==b；返回正数，表示a>b。
 Arrays.sort(Integer[] a, (a, b) -> a - b) // 顺序
 ```
 
-数组去重：推荐使用ArrayList
+数组去重：使用ArrayList
 
-二分查找（排序好的数组，返回左边界的值，找不到返回小于0的数）：
+二分查找（排序好的数组，返回左边界的值，找不到返回负数）：
 
 ```java
 Array.binarySearch(Object[] a, Object key)
 ```
 
-交换两个数：
-
-```java
-static int[] q = new int[100005];
-public static void swap(int i, int j) {
-    int t = q[i];
-    q[i] = q[j];
-    q[j] = t;
-}
-```
-
-## 3. ArrayList
+## 4. ArrayList
 
 + add(obj)
 + get(index)
@@ -147,7 +132,7 @@ public static void swap(int i, int j) {
 + indexOf(obj) 
 + clear()
 
-排序：
+排序（和Arrays.sort()类似）：
 
 ```java
 Collections.sort(list)
@@ -160,15 +145,6 @@ List<List<Integer>> resultList = new ArrayList<>();
 resultList.add(flagList); // 二维数组赋值，flagList为一维数组
 ```
 
-转换数组：
-
-```java
-List<Integer> temp = new ArrayList<>();
-int[] result = new int[temp.size()]; 
-for (int i = 0; i < temp.size(); i++) 
-	result[i] = temp.get(i);
-```
-
 去重：
 
 ```java
@@ -176,31 +152,21 @@ HashSet<Integer> tmp = new HashSet<Integer>(arraylist);
 arraylist = new ArrayList<Integer>(tmp);
 ```
 
-## 4. LinkedList
+## 5. LinkedList
 
-LinkedList 也可以作为堆栈、队列来使用。
-
-```java
-public class LinkedList<E> extends AbstractSequentialList<E> implements List<E>, Deque<E>, Cloneable, java.io.Serializable
-```
+LinkedList 可以作为堆栈、队列来使用。
 
 + 数组：和ArrayList的api一样
 + 队列：addLast(E e)、addFirst(E e)、removeFirst()、removeLast()、getFirst()、getLast()
 + 堆栈：push()、pop()
 
-排序：
-
-```java
-Collections.sort(list)
-```
-
-## 5. HashMap
+## 6. HashMap
 
 + put(K key, V value)
 + get(Object key)
++ getOrDefault(key, defaultValue)
 + remove(Object key)
 + containsKey(Object key)
-+ getOrDefault(key, defaultValue)
 + clear()
 
 遍历，Map不能直接使用迭代器进行遍历，需要先转成Set：
@@ -220,7 +186,7 @@ for (Entry<String, String> entry : map.entrySet()) {
 }
 ```
 
-## 6. HashSet
+## 7. HashSet
 
 + add(obj)
 + remove(objectx)
@@ -228,7 +194,7 @@ for (Entry<String, String> entry : map.entrySet()) {
 + contains(obj)
 + clear()
 
-## 7. String
+## 8. String
 
 ```java
 // 字符串的创建
