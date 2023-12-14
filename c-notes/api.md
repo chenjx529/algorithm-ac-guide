@@ -236,3 +236,12 @@ string.trim();
 // 空字符串 isEmpty()
 "".isEmpty();
 ```
+
+字符串排序：
+
+```java
+char[] array = str.toCharArray();// 转换为字符数组
+Arrays.sort(array);// 根据字典排序
+String key = new String(array);
+```
+
