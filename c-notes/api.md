@@ -245,3 +245,9 @@ Arrays.sort(array);// 根据字典排序
 String key = new String(array);
 ```
 
+StringBuilder：
+
+```
+
+```
+

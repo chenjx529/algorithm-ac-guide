@@ -170,13 +170,19 @@ if (st != Integer.MIN_VALUE) {
 ### 单调队列
 
 ```java
-int[] a; // 原始数组
-int[] q; // 单调队列，保存a的下标
+int[] a, q;
 int hh = 0, tt = -1;
 for (int i = 0; i < n; i++) {
-    if (hh <= tt && q[hh] < i - k + 1) hh ++; // 移动对头，q ∈ [i - k + 1, i]，这个区间是滑动窗口
-    while (hh <= tt && a[q[tt]] >= a[i]) tt--; // 移动队尾，注意有等号。如果是单调递减的话，只需要改成<=，其他地方不用修改
-    q[++tt] = i; // 此时前面的数都比a[i]小
+    // 移动对头，q ∈ [i - k + 1, i]，这个区间是滑动窗口
+    if (hh <= tt && q[hh] < i - k + 1) hh ++; 
+    
+    // 移动队尾，注意有等号。如果是单调递减的话，只需要改成<=，其他地方不用修改
+    while (hh <= tt && a[q[tt]] >= a[i]) tt--; 
+    
+    // 入队，此时前面的数都比a[i]小
+    q[++tt] = i; 
+    
+    // 找出滑动窗口中的最大值/最小值
     if (i >= k - 1) {
         System.out.print(a[q[hh]] + " ");
     }
@@ -186,7 +192,21 @@ for (int i = 0; i < n; i++) {
 ### 单调栈
 
 ```java
-
+int[] stk = new int[n];
+int tt = -1;
+for (int i = 0; i < n; i++) {
+    int x = sc.nextInt();
+    
+    // 单调递增的栈
+    while (tt >= 0 && stk[tt] >= x) tt--; 
+    
+    // 输出每个数左边离它最近的比它大 / 小的数
+    if (tt >= 0) System.out.print(stk[tt] + " ");
+    else System.out.print(-1 + " ");
+    
+    // 入栈
+    stk[++tt] = x;
+}
 ```
 
 ### 并查集
