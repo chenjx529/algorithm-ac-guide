@@ -10,6 +10,8 @@
 
 单调的，考虑二分，双指针。
 
+双指针一定要排序。
+
 二维数组求和问题，考虑前缀和。
 
 数字都在 1 到 n 之间，查找一个有范围的整数，考虑二分查找。
@@ -142,14 +144,13 @@ Collections.sort(list)
 
 ```java
 List<List<Integer>> resultList = new ArrayList<>();
-resultList.add(flagList); // 二维数组赋值，flagList为一维数组
+resultList.add(flagList);
 ```
 
 去重：
 
 ```java
-HashSet<Integer> tmp = new HashSet<Integer>(arraylist);
-arraylist = new ArrayList<Integer>(tmp);
+new ArrayList<>(new HashSet<>(arraylist));
 ```
 
 ## 5. LinkedList
@@ -172,17 +173,19 @@ LinkedList 可以作为堆栈、队列来使用。
 遍历，Map不能直接使用迭代器进行遍历，需要先转成Set：
 
 ```java
-// 方式一
-for (String key : map.keySet()) {
-    String value = map.get(key);
-    System.out.println(key + ": " + value);
+// 使用迭代器遍历
+for (Map.Entry<Integer, String> entry : map.entrySet()) {
+    System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
 }
 
-// 方式二：
-for (Entry<String, String> entry : map.entrySet()) {
-    String key = entry.getKey();
-    String value = entry.getValue();  
-    System.out.println(key + ": " + value);
+// 使用键遍历
+for (Integer key : map.keySet()) {
+    System.out.println("Key: " + key + ", Value: " + map.get(key));
+}
+
+// 使用值遍历（不推荐，因为可能存在多个键对应相同的值）
+for (String value : map.values()) {
+    System.out.println("Value: " + value);
 }
 ```
 
