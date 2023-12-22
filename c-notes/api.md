@@ -27,11 +27,17 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+        int n = sc.nextInt(); // 读取下一个int
         int[] q = new int[n];
         for (int i = 0; i < n; i++) {
             q[i] = sc.nextInt();
         }
+        
+        String line = scanner.nextLine(); // 读取输入的整行文本
+        String line = scanner.next(); // 读取下一个文本，遇到空格就行停
+        String line = scanner.next(); // 读取下一个文本，遇到空格就行停
+        char c = sc.next().charAt(0); // 读取一个字符
+        
     }
 }
 ```
@@ -116,7 +122,11 @@ Arrays.sort(Object[] a, fromIndex, toIndex)
 Arrays.sort(Integer[] a, (a, b) -> a - b) // 顺序
 ```
 
-数组去重：使用ArrayList
+数组去重：
+
+```
+new ArrayList<>(new HashSet<>(arraylist));
+```
 
 二分查找（排序好的数组，返回左边界的值，找不到返回负数）：
 
@@ -248,9 +258,23 @@ Arrays.sort(array);// 根据字典排序
 String key = new String(array);
 ```
 
-StringBuilder：
+## 9. PriorityQueue
 
-```
+优先队列，就是一个堆。
 
+- `add(E element)` / `offer(E element)`：将指定的元素插入到优先队列中。
+- `remove(E element)` ：移除指定元素，返回布尔值。如果队列中不存在要删除的元素，则返回`false`。
+- `poll()` ：移除并返回队列中的头部元素。如果队列为空，`poll()`方法返回`null`。
+- `peek()`：返回但不移除队列的头部元素，如果队列为空，则返回null。
+- `size()`：返回队列中的元素数量。
+- `isEmpty()`：检查队列是否为空。
+- `clear()`：清空队列中的所有元素。
+- `toArray()`：将队列中的元素以数组形式返回。
+
+```java
+// 最小堆
+PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+// 最大堆
+PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> Integer.compare(b, a));
 ```
 
